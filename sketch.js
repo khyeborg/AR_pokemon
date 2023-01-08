@@ -39,6 +39,9 @@ var layBabiesTimeLower = 1500, layBabiesTimeUpper = 3000;
 var layBabiesTimeLowerShiny = 2000, layBabiesTimeUpperShiny = 6000;
 var pregnantTime = 350;
 
+// all star code variables
+var shifted = false;
+
 function setup() {
     frameRate(50);
     
@@ -168,6 +171,33 @@ function draw() {
     }
 
     // the floor marker
+    if (!zbMarker.isVisible() && shifted == false) {
+        // get the position of the marker
+        var p = new THREE.Vector3();
+        p.setFromMatrixPosition(zbMarker.tag.object3D.matrixWorld);
+
+        // get the rotation of the marker
+        var r = zbMarker.tag.object3D.rotation;
+
+        // console.log(p.x, p.y, p.z);
+        // console.log(r.x, r.y, r.z);
+
+        p.x = 0;
+        p.y = -2.2;
+        p.z = -13;
+
+        r.x = 0;
+        r.y = 0;
+        r.z = 0;
+
+        // update our static container to have the same position & rotation as the marker
+        staticContainer.setPosition(p.x, p.y, p.z);
+        staticContainer.rotateX(degrees(r.x));
+        staticContainer.rotateY(degrees(r.y));
+        staticContainer.rotateZ(degrees(r.z));
+    }
+
+    // the floor marker
     if (zbMarker.isVisible()) {
         // get the position of the marker
         var p = new THREE.Vector3();
@@ -181,5 +211,7 @@ function draw() {
         staticContainer.rotateX(degrees(r.x));
         staticContainer.rotateY(degrees(r.y));
         staticContainer.rotateZ(degrees(r.z));
+
+        shifted = true;
     }
 }
