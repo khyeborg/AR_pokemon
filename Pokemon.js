@@ -46,6 +46,10 @@ class Pokemon {
     	if (this.shinyNum > shinyChanceNum) {this.shiny = false; this.layBabiesTime = Math.floor(random(layBabiesTimeLower, layBabiesTimeUpper));}
     	else {this.shiny = true; this.layBabiesTime = Math.floor(random(layBabiesTimeLowerShiny, layBabiesTimeUpperShiny));}
 
+    	// dead
+    	this.dead = false;
+    	this.deadFactor = Math.floor(random(2800, 4000));
+
 		// pokemon specific variables
 		if (this.pokemonName == "poliwag") {
 			// animation
@@ -280,9 +284,25 @@ class Pokemon {
 
 	grow() {
 		// do not let grow factor exceed 2.5
-		if (this.growFactor >= maximumGrowth) {return maximumGrowth;}
+		if (this.growFactor >= maximumGrowth) {
+
+			// only continue to die if pokemon is not pregnant
+			if (this.pregnant == false) {
+				this.growCounter++;
+			}
+
+			// 4000 - average of 2 pregnancies
+			// 3000 - average of 1 pregnancy
+			if (this.growCounter > this.deadFactor) {
+				this.dead = true;
+			}
+
+			return maximumGrowth;
+		}
 		
-		this.growCounter++;
+		if (this.dead == false) {
+			this.growCounter++;
+		}
 
 		if (this.growCounter % 25 == 0) {
 			this.growFactor += growthRate;

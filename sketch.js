@@ -104,28 +104,35 @@ function setup() {
 function draw() {
     // mova and animate all Pokemons
     for (var i = 0; i < pokemons.length; i++) {
-        pokemons[i].animate();
 
-        // only start moving after Pokemon has fallen
-        if (pokemons[i].fallen == true) { 
-            pokemons[i].move();
-            pokemons[i].layBabies();
-        }
-        else {
-            pokemons[i].fall();
-        }
+    	if (pokemons[i].dead == false || pokemons[i].pregnant == true) {
+	        pokemons[i].animate();
 
-        // pregant egg
-        if (pokemons[i].pregnant == true) {pokemons[i].containerArray[pokemons[i].containerArray.length - 1].show();}
-        else {pokemons[i].containerArray[pokemons[i].containerArray.length - 1].hide();}
-        
-        if (pokemons[i].fallen == true) {
-            pokemons[i].growAmount = pokemons[i].grow();
-            pokemons[i].container.setScale(pokemons[i].scale * pokemons[i].growAmount * scaleFactor, pokemons[i].scale * pokemons[i].growAmount * scaleFactor, pokemons[i].scale * pokemons[i].growAmount * scaleFactor);
-        }
-        else {
-            pokemons[i].container.setScale(pokemons[i].scale * scaleFactor, pokemons[i].scale * scaleFactor, pokemons[i].scale * scaleFactor);
-        }
+	        // only start moving after Pokemon has fallen
+	        if (pokemons[i].fallen == true) { 
+	            pokemons[i].move();
+	            pokemons[i].layBabies();
+	        }
+	        else {
+	            pokemons[i].fall();
+	        }
+
+	        // pregant egg
+	        if (pokemons[i].pregnant == true) {pokemons[i].containerArray[pokemons[i].containerArray.length - 1].show();}
+	        else {pokemons[i].containerArray[pokemons[i].containerArray.length - 1].hide();}
+	        
+	        if (pokemons[i].fallen == true) {
+	            pokemons[i].growAmount = pokemons[i].grow();
+	            pokemons[i].container.setScale(pokemons[i].scale * pokemons[i].growAmount * scaleFactor, pokemons[i].scale * pokemons[i].growAmount * scaleFactor, pokemons[i].scale * pokemons[i].growAmount * scaleFactor);
+	        }
+	        else {
+	            pokemons[i].container.setScale(pokemons[i].scale * scaleFactor, pokemons[i].scale * scaleFactor, pokemons[i].scale * scaleFactor);
+	        }
+	    }
+
+	    else {
+	    	pokemons[i].container.setScale(0, 0, 0);
+	    }
     }
 
     // for loop to iterate through all markers
