@@ -51,7 +51,7 @@ class Pokemon {
     	//this.deadFactor = Math.floor(random(2800, 4000));
 	
 	// pokemon "die" faster	to prevent clogging of spwans
-	this.deadFactor = Math.floor(random(1000, 2000));
+	this.deadFactor = Math.floor(random(2800, 3100));
 
 		// pokemon specific variables
 		if (this.pokemonName == "poliwag") {
